@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, ActivityIndicator } from 'react-native';
 import { useState, useRef, useCallback } from 'react';
 import { GestureHandlerRootView, PanGestureHandler, State } from 'react-native-gesture-handler';
 import EventHeader from './components/EventHeader';
+import EventItem from './components/EventItem';
 import { useEvents } from './hooks/useEvents';
 
 export default function App() {
@@ -56,22 +57,24 @@ export default function App() {
         />
         <View style={styles.content}>
           {loading ? (
-            <Text>Loading events...</Text>
+            <ActivityIndicator size="large" color="#007bff" />
           ) : error ? (
             <Text>Error: {error}</Text>
           ) : events.length > 0 ? (
             <FlatList
               data={events}
               keyExtractor={(item, index) => `${item.event_title}-${index}`}
+              contentContainerStyle={{ paddingTop: 100, paddingBottom: 40 }}
               renderItem={({ item }) => (
-                <View style={styles.eventItem}>
-                  <Text style={styles.eventTitle}>{item.event_title}</Text>
-                  <Text style={styles.eventLocation}>{item.location_name}</Text>
-                  <Text style={styles.eventCategory}>{item.category_name}</Text>
-                  <Text style={styles.eventPrice}>
-                    Price: {item.event_price === 0 ? 'Free' : `${item.event_price} RUB`}
-                  </Text>
-                </View>
+                <EventItem
+                  avatar={item.category_name}
+                  title={item.event_title}
+                  startTime={item.event_start_date}
+                  location={item.location_name}
+                  price={item.event_price}
+                  eventType={item.category_name}
+                  onPress={() => console.log('Event pressed:', item.event_title)}
+                />
               )}
             />
           ) : (
@@ -93,34 +96,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     padding: 10,
-  },
-  eventItem: {
-    backgroundColor: '#f9f9f9',
-    padding: 15,
-    marginBottom: 10,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#ddd',
-  },
-  eventTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  eventLocation: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 3,
-  },
-  eventCategory: {
-    fontSize: 12,
-    color: '#888',
-    fontStyle: 'italic',
-    marginBottom: 5,
-  },
-  eventPrice: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#007bff',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
