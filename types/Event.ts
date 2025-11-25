@@ -1,8 +1,8 @@
 export interface Event {
-  event_title: string;
-  event_start_date: string;
-  location_name: string;
+  event_id: number;
+  date: string;
+  price: number;
+  title: string;
   category_name: string;
-  event_price: number;
-  event_date: string;
+  location_name: string;
 }

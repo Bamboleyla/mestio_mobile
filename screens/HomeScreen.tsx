@@ -66,15 +66,15 @@ const HomeScreen = () => {
             ) : events.length > 0 ? (
               <FlatList
                 data={events}
-                keyExtractor={(item, index) => `${item.event_title}-${index}`}
+                keyExtractor={(item, index) => `${item.title}-${index}`}
                 contentContainerStyle={{ paddingTop: 100, paddingBottom: 40 }}
                 renderItem={({ item }) => (
                   <EventItem
                     avatar={item.category_name}
-                    title={item.event_title}
-                    startTime={item.event_start_date}
+                    title={item.title}
+                    startTime={item.date}
                     location={item.location_name}
-                    price={item.event_price}
+                    price={item.price}
                     eventType={item.category_name}
                     onPress={() => navigation.navigate('EventDetail')}
                   />
