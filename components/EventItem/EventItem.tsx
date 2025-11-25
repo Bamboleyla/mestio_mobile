@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
+  Image,
 } from 'react-native';
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 import { EventItemProps } from '../../types/EventItem';
@@ -17,8 +18,9 @@ const EventItem: React.FC<EventItemProps> = ({
   price,
   eventType,
   onPress,
+  imgPath,
 }) => {
-  // Функция для получения иконки по типу события
+   // Функция для получения иконки по типу события
   const getEventIcon = (type: string): (() => React.JSX.Element) => {
     switch (type) {
       case 'кино':
@@ -69,7 +71,17 @@ const EventItem: React.FC<EventItemProps> = ({
       <View style={styles.content}>
         {/* Аватар события */}
         <View style={styles.avatarContainer}>
-          <EventIcon />
+          {imgPath ? (
+            <Image
+              source={{ uri: `http://127.0.0.1:8000/static/images/${imgPath}` }}
+              style={styles.avatarImage}
+              resizeMode="cover"
+              onError={(error) => console.log('Image error:', error)}
+              onLoad={() => console.log('Image loaded successfully')}
+            />
+          ) : (
+            <EventIcon />
+          )}
         </View>
 
         {/* Основная информация */}
@@ -129,6 +141,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
+  },
+  avatarImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
   },
   infoContainer: {
     flex: 1,

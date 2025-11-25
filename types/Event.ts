@@ -5,4 +5,5 @@ export interface Event {
   title: string;
   category_name: string;
   location_name: string;
+  img_path: string | null;
 }

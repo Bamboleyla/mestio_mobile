@@ -8,7 +8,7 @@ export const fetchEventsByDate = async (date: Date): Promise<Event[]> => {
     const response = await fetch(`${BASE_URL}/api/v1/events/by-date?search_date=${formattedDate}`);
     if (!response.ok) {
       throw new Error(`Failed to fetch events: ${response.statusText}`);
-    }
+  }
     const data = await response.json();
     return data;
   } catch (error) {

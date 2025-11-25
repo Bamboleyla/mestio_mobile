@@ -76,6 +76,7 @@ const HomeScreen = () => {
                     location={item.location_name}
                     price={item.price}
                     eventType={item.category_name}
+                    imgPath={item.img_path}
                     onPress={() => navigation.navigate('EventDetail')}
                   />
                 )}
