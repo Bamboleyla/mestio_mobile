@@ -77,7 +77,12 @@ const HomeScreen = () => {
                     price={item.price}
                     eventType={item.category_name}
                     imgPath={item.img_path}
-                    onPress={() => navigation.navigate('EventDetail')}
+                    eventId={item.event_id.toString()}
+                    date={item.date}
+                    onPress={(eventId, date) => navigation.navigate('EventDetail', {
+                      eventId: eventId,
+                      date: date
+                    })}
                   />
                 )}
               />

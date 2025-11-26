@@ -22,7 +22,16 @@ export const fetchEventsByCategory = async (category: string): Promise<Event[]> 
   return [];
 };
 
-export const fetchEventDetails = async (eventId: string): Promise<Event | null> => {
-  // Future implementation
-  return null;
+export const fetchEventDetails = async (eventId: string, date: string): Promise<any> => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/v1/events/${eventId}/details?date=${date}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch event details: ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching event details:', error);
+    throw error;
+  }
 };

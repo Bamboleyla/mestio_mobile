@@ -5,6 +5,8 @@ export interface EventItemProps {
   location: string; // Место проведения
   price: number | string; // Цена
   eventType: string; // Категория события
-  onPress?: () => void; // Обработчик нажатия
+  onPress?: (eventId: string, date: string) => void; // Обработчик нажатия
   imgPath: string | null; // Путь к изображению события
+  eventId?: string; // ID события
+  date?: string; // Дата события
 }

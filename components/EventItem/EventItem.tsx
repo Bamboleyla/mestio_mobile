@@ -19,6 +19,8 @@ const EventItem: React.FC<EventItemProps> = ({
   eventType,
   onPress,
   imgPath,
+  eventId,
+  date,
 }) => {
    // Функция для получения иконки по типу события
   const getEventIcon = (type: string): (() => React.JSX.Element) => {
@@ -67,9 +69,9 @@ const EventItem: React.FC<EventItemProps> = ({
   };
 
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity style={styles.container} onPress={() => onPress && onPress(eventId || '', date || '')}>
       <View style={styles.content}>
-        {/* Аватар события */}
+        {/* Event Avatar */}
         <View style={styles.avatarContainer}>
           {imgPath ? (
             <Image
@@ -84,7 +86,7 @@ const EventItem: React.FC<EventItemProps> = ({
           )}
         </View>
 
-        {/* Основная информация */}
+        {/* Basic information */}
         <View style={styles.infoContainer}>
           <Text style={styles.title} numberOfLines={2}>
             {title}
@@ -101,7 +103,7 @@ const EventItem: React.FC<EventItemProps> = ({
           </View>
         </View>
       </View>
-      {/* Нижняя строка с типом события и ценой */}
+      {/* Bottom line with event type and price */}
       <View style={styles.footer}>
         <View style={styles.detailItem}>
           <MaterialIcons name="access-time" size={16} color="#666" />
