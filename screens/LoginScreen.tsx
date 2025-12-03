@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-const LoginScreen = () => {
+type RootStackParamList = {
+  Login: undefined;
+  Home: undefined;
+  EventDetail: undefined;
+  Registration: undefined;
+};
+
+type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
+
+const LoginScreen = ({ navigation }: { navigation: LoginScreenNavigationProp }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -188,7 +198,7 @@ const LoginScreen = () => {
         <Text style={styles.buttonText}>Войти</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Registration')}>
         <Text style={styles.link}>Зарегистрироваться</Text>
       </TouchableOpacity>
     </View>
